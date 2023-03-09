@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  db:
+    build: ./mongodb
+    ports:
+      - "27890:27017"
+    volumes:
+      - ~/dotorimarket/appstore/db:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongo-admin
+      - MONGO_INITDB_ROOT_PASSWORD=P@ssW0rd
+    networks:
+      - openai-chatgpt
+
+networks:
+  openai-chatgpt:

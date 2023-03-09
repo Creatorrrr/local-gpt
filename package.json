@@ -1,0 +1,11 @@
+{
+  "name": "openai-chatgpt",
+  "private": true,
+  "workspaces": [
+    "packages/**"
+  ],
+  "scripts": {
+    "backend": "yarn workspace openai-chatgpt-backend",
+    "frontend": "yarn workspace openai-chatgpt-frontend"
+  }
+}
