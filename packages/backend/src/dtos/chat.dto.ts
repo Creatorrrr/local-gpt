@@ -12,7 +12,7 @@ export class ChatDto extends AbstractCommonDto {
     this.content = content;
   }
 
-  @ApiProperty()
+  @ApiProperty({ example: "user" })
   @IsString()
   role: string;
 
