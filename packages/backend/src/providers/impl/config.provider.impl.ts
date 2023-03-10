@@ -18,12 +18,13 @@ export class ConfigProviderImpl extends AbstractCommonProvider implements Config
 
   async getConfig(): Promise<ConfigDto> {
     const configList = await this.configModel.find().exec();
-    const configDto = new ConfigDto(configList?.[0]?.toObject());
 
-    return configDto;
+    return new ConfigDto(configList?.[0]?.toObject());
   }
 
   async postConfig(config: ConfigDto): Promise<ConfigDto> {
+    await this.configModel.deleteMany().exec();
+
     const createdConfig = await this.configModel.create(config);
 
     return new ConfigDto(createdConfig.toObject());
