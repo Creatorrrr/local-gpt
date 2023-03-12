@@ -35,35 +35,19 @@ export class ChatProviderImpl extends AbstractCommonProvider implements ChatProv
   async sendChat(chat: ChatDto): Promise<string> {
     await this.chatModel.create(chat);
 
-    const configList = await this.configModel.find().exec();
-    const { modelEngine, apiKey, temperature } = configList?.[0]?.toObject();
+    const config = await this.configModel.findOne().exec();
+    const { modelEngine = MODEL_ENGINE, apiKey, temperature = TEMPERATURE } = config || {};
 
-    if (!apiKey) {
-      throw new Error("API키를 등록해주세요.");
-    }
+    if (!apiKey) throw new Error("API키를 등록해주세요.");
 
-    const openAiApi = new OpenAIApi(
-      new Configuration({
-        apiKey,
-      })
-    );
-
+    const openAiApi = new OpenAIApi(new Configuration({ apiKey }));
     const chatList = await this.chatModel.find().exec();
-    const messages = chatList.map((item) => {
-      const { role, content } = item.toObject();
-      return { role, content } as ChatCompletionRequestMessage;
-    });
+    const messages = chatList.map(({ role, content }) => ({ role, content })) as ChatCompletionRequestMessage[];
 
-    const completion = await openAiApi.createChatCompletion({
-      model: modelEngine || MODEL_ENGINE,
-      temperature: temperature || TEMPERATURE,
-      messages,
-    });
-
+    const completion = await openAiApi.createChatCompletion({ model: modelEngine, temperature, messages });
     await this.chatLogModel.create(completion.data);
 
     const message = completion.data.choices[0].message;
-
     await this.chatModel.create(message);
 
     return message.content.trim();

@@ -1,15 +1,29 @@
 version: '3.8'
 
 services:
+  web:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "80:3000"
+      - "443:3000"
+    volumes:
+      - ~/openai-chatgpt/files:/app/files
+    environment:
+      - DB_DATABASE=mongodb://mongo-admin:P%40ssW0rd@db:27017/openai-chatgpt?authSource=admin
+    networks:
+      - openai-chatgpt
   db:
     build: ./mongodb
     ports:
       - "27890:27017"
     volumes:
-      - ~/dotorimarket/appstore/db:/data/db
+      - ~/openai-chatgpt/db:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=mongo-admin
       - MONGO_INITDB_ROOT_PASSWORD=P@ssW0rd
+    restart: always
     networks:
       - openai-chatgpt
 
