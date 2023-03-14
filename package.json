@@ -7,5 +7,8 @@
   "scripts": {
     "backend": "yarn workspace openai-chatgpt-backend",
     "frontend": "yarn workspace openai-chatgpt-frontend"
+  },
+  "engines": {
+    "node": ">=14.20.1"
   }
 }
