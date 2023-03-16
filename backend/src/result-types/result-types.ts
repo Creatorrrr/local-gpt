@@ -1,8 +1,8 @@
-import { ResultType } from "@/errors/result-type";
-import { ModifyFailedError } from "@/errors/modify-failed.error";
-import { RemoveFailedError } from "@/errors/remove-failed.error";
-import { RegisterFailedError } from "@/errors/register-failed.error";
-import { GetFailedError } from "@/errors/get-failed.error";
+import { ResultType } from "@/result-types/result-type";
+import { ModifyFailedError } from "@/result-types/errors/modify-failed.error";
+import { RemoveFailedError } from "@/result-types/errors/remove-failed.error";
+import { RegisterFailedError } from "@/result-types/errors/register-failed.error";
+import { GetFailedError } from "@/result-types/errors/get-failed.error";
 import { HttpStatus } from "@nestjs/common";
 
 export class ResultTypes {

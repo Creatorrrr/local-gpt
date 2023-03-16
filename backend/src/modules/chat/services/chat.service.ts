@@ -1,5 +1,5 @@
-import { ChatLogDto } from "@/dtos/chat-log.dto";
-import { ChatDto } from "@/dtos/chat.dto";
+import { ChatLogDto } from "@/modules/chat/dtos/chat-log.dto";
+import { ChatDto } from "@/modules/chat/dtos/chat.dto";
 
 /**
  * 대화 Service

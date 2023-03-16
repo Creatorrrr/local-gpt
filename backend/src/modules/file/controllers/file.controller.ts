@@ -1,12 +1,12 @@
 import { Controller, Inject, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { AbstractCommonController } from "@/controllers/abstract-common-controller";
-import { FileService } from "@/services/file.service";
-import { FileServiceImpl } from "@/services/impl/file.service.impl";
+import { AbstractCommonController } from "@/abstracts/abstract-common-controller";
 import { ResultDto } from "@/dtos/result.dto";
-import { FileDto } from "@/dtos/file.dto";
-import { ResultTypes } from "@/errors/result-types";
+import { ResultTypes } from "@/result-types/result-types";
+import { FileService } from "@/modules/file/services/file.service";
+import { FileServiceImpl } from "@/modules/file/services/impls/file.service.impl";
+import { FileDto } from "@/modules/file/dtos/file.dto";
 
 @Controller()
 @ApiTags("파일 API")

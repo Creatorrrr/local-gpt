@@ -1,6 +1,6 @@
-import { AbstractCommonDto } from "@/dtos/abstract-common.dto";
-import { ApiProperty } from "@nestjs/swagger";
 import { IsString } from "class-validator";
+import { ApiProperty } from "@nestjs/swagger";
+import { AbstractCommonDto } from "@/abstracts/abstract-common.dto";
 
 /**
  * 대화 DTO

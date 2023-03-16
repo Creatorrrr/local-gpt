@@ -1,4 +1,4 @@
-import { ResultTypes } from "@/errors/result-types";
+import { ResultTypes } from "@/result-types/result-types";
 
 export class RegisterFailedError extends Error {
   constructor(message?: string) {

@@ -1,7 +1,7 @@
-import { ResultDto } from "@/dtos/result.dto";
-import { ResultType } from "@/errors/result-type";
-import { ResultTypes } from "@/errors/result-types";
 import { Logger } from "@nestjs/common";
+import { ResultDto } from "@/dtos/result.dto";
+import { ResultType } from "@/result-types/result-type";
+import { ResultTypes } from "@/result-types/result-types";
 
 /**
  * 컨트롤러 공통 추상 클래스

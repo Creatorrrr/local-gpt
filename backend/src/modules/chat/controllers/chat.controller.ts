@@ -1,12 +1,12 @@
 import { Body, Controller, Delete, Get, Inject, Post } from "@nestjs/common";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
-import { AbstractCommonController } from "@/controllers/abstract-common-controller";
-import { ChatService } from "@/services/chat.service";
-import { ChatServiceImpl } from "@/services/impl/chat.service.impl";
+import { AbstractCommonController } from "@/abstracts/abstract-common-controller";
 import { ResultDto } from "@/dtos/result.dto";
-import { ChatDto } from "@/dtos/chat.dto";
-import { ChatLogDto } from "@/dtos/chat-log.dto";
-import { ResultTypes } from "@/errors/result-types";
+import { ResultTypes } from "@/result-types/result-types";
+import { ChatService } from "@/modules/chat/services/chat.service";
+import { ChatServiceImpl } from "@/modules/chat/services/impls/chat.service.impl";
+import { ChatDto } from "@/modules/chat/dtos/chat.dto";
+import { ChatLogDto } from "@/modules/chat/dtos/chat-log.dto";
 
 @Controller()
 @ApiTags("채팅 API")

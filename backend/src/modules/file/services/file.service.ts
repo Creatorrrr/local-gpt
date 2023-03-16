@@ -1,4 +1,4 @@
-import { FileDto } from "@/dtos/file.dto";
+import { FileDto } from "@/modules/file/dtos/file.dto";
 
 /**
  * 파일 Service

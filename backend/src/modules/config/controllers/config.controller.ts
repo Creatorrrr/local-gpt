@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Inject, Post } from "@nestjs/common";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
-import { AbstractCommonController } from "@/controllers/abstract-common-controller";
-import { ConfigService } from "@/services/config.service";
-import { ConfigServiceImpl } from "@/services/impl/config.service.impl";
+import { AbstractCommonController } from "@/abstracts/abstract-common-controller";
 import { ResultDto } from "@/dtos/result.dto";
-import { ConfigDto } from "@/dtos/config.dto";
-import { ResultTypes } from "@/errors/result-types";
+import { ResultTypes } from "@/result-types/result-types";
+import { ConfigService } from "@/modules/config/services/config.service";
+import { ConfigServiceImpl } from "@/modules/config/services/impls/config.service.impl";
+import { ConfigDto } from "@/modules/config/dtos/config.dto";
 
 @Controller()
 @ApiTags("설정 API")

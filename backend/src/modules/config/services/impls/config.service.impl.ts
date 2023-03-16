@@ -1,10 +1,10 @@
 import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { AbstractCommonService } from "@/services/impl/abstract-common.service";
-import { ConfigService } from "@/services/config.service";
-import { ConfigDto } from "@/dtos/config.dto";
+import { AbstractCommonService } from "@/abstracts/abstract-common.service";
 import { Config, ConfigDocument } from "@/schemas/config.schema";
+import { ConfigService } from "@/modules/config/services/config.service";
+import { ConfigDto } from "@/modules/config/dtos/config.dto";
 
 /**
  * 설정 Service 구현

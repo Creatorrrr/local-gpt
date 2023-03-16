@@ -1,8 +1,6 @@
+import { Readable } from "stream";
 import { IsNumber, IsString } from "class-validator";
-import { AbstractCommonDto } from "@/dtos/abstract-common.dto";
-import { ApiProperty } from "@nestjs/swagger";
-import { MODEL_ENGINE, TEMPERATURE } from "@/constants/openai.constant";
-import { isReadable, Readable } from "stream";
+import { AbstractCommonDto } from "@/abstracts/abstract-common.dto";
 
 /**
  * 파일 DTO

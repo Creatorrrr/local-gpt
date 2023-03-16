@@ -2,14 +2,14 @@ import { OpenAIApi, Configuration, ChatCompletionRequestMessage } from "openai";
 import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { AbstractCommonService } from "@/services/impl/abstract-common.service";
-import { ChatService } from "@/services/chat.service";
-import { ChatDto } from "@/dtos/chat.dto";
-import { ChatLogDto } from "@/dtos/chat-log.dto";
+import { AbstractCommonService } from "@/abstracts/abstract-common.service";
 import { Config, ConfigDocument } from "@/schemas/config.schema";
 import { Chat, ChatDocument } from "@/schemas/chat.schema";
 import { ChatLog, ChatLogDocument } from "@/schemas/chat-log.schema";
 import { MODEL_ENGINE, TEMPERATURE } from "@/constants/openai.constant";
+import { ChatService } from "@/modules/chat/services/chat.service";
+import { ChatDto } from "@/modules/chat/dtos/chat.dto";
+import { ChatLogDto } from "@/modules/chat/dtos/chat-log.dto";
 
 /**
  * 대화 Service 구현

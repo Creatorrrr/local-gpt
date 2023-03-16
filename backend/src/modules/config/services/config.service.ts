@@ -1,4 +1,4 @@
-import { ConfigDto } from "@/dtos/config.dto";
+import { ConfigDto } from "@/modules/config/dtos/config.dto";
 
 /**
  * 설정 Service
