@@ -1,4 +1,5 @@
 @echo off
+chcp 65001 > NUL
 
 set DOCKER_COMPOSE_PATH="%CD%/docker-compose.yml"
 goto :run
@@ -59,4 +60,9 @@ IF "%~1" == "start" (
   call :log
 ) ELSE IF "%~1" == "stop" (
   call :down
+) ELSE IF "%~1" == "" (
+  echo "명령어를 입력하세요: start, reload_web, reload_db, restart_web, restart_db, stop"
+) ELSE (
+  echo "잘못된 명령어입니다. 다음 중 하나를 입력하세요: start, reload_web, reload_db, restart_web, restart_db, stop"
 )
+
