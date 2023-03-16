@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Inject, Post } from "@nestjs/common";
+import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { AbstractCommonController } from "@/controllers/abstract-common-controller";
 import { ChatService } from "@/services/chat.service";
 import { ChatServiceImpl } from "@/services/impl/chat.service.impl";
@@ -8,6 +9,7 @@ import { ChatLogDto } from "@/dtos/chat-log.dto";
 import { ResultTypes } from "@/errors/result-types";
 
 @Controller()
+@ApiTags("채팅 API")
 export class ChatController extends AbstractCommonController {
   constructor(@Inject(ChatServiceImpl) private readonly chatProvider: ChatService) {
     super();
@@ -15,24 +17,28 @@ export class ChatController extends AbstractCommonController {
   }
 
   @Get("/chats")
+  @ApiOperation({ summary: "채팅 리스트 조회" })
   async getChats(): Promise<ResultDto<ChatDto[]>> {
     const result = await this.chatProvider.getChats();
     return this.makeResult(ResultTypes.SUCCESS_GET, result);
   }
 
   @Post("/chats")
-  async sendChat(@Body() chat: ChatDto): Promise<ResultDto<string>> {
+  @ApiOperation({ summary: "채팅 등록" })
+  async postChat(@Body() chat: ChatDto): Promise<ResultDto<string>> {
     const result = await this.chatProvider.sendChat(chat);
     return this.makeResult(ResultTypes.SUCCESS_SEND, result);
   }
 
   @Delete("/chats")
+  @ApiOperation({ summary: "채팅 삭제" })
   async deleteChats(): Promise<ResultDto<void>> {
     await this.chatProvider.deleteChats();
     return this.makeResult(ResultTypes.SUCCESS_GET_EMPTY);
   }
 
   @Get("/chat-logs")
+  @ApiOperation({ summary: "채팅 로그 리스트 조회" })
   async getChatLogs(): Promise<ResultDto<ChatLogDto[]>> {
     const result = await this.chatProvider.getChatLogs();
     return this.makeResult(ResultTypes.SUCCESS, result);
