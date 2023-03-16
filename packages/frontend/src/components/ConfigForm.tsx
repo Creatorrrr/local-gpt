@@ -9,19 +9,21 @@ type ConfigData = {
   temperature: number;
 };
 
+const defaultConfigData = {
+  modelEngine: "gpt-3.5-turbo",
+  apiKey: "",
+  temperature: 0.2,
+};
+
 const ConfigForm = () => {
-  const [configData, setConfigData] = useState<ConfigData>({
-    modelEngine: "gpt-3.5-turbo",
-    apiKey: "",
-    temperature: 0.2,
-  });
+  const [configData, setConfigData] = useState<ConfigData>(defaultConfigData);
 
   useEffect(() => {
     (async () => {
       const response = await getConfig();
       const config = response.data?.result;
       if (config) setConfigData({
-        ...configData,
+        ...defaultConfigData,
         ...config
       });
     })();
