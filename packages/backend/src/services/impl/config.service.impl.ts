@@ -1,8 +1,8 @@
 import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { AbstractCommonProvider } from "@/providers/impl/abstract-common.provider";
-import { ConfigProvider } from "@/providers/config.provider";
+import { AbstractCommonService } from "@/services/impl/abstract-common.service";
+import { ConfigService } from "@/services/config.service";
 import { ConfigDto } from "@/dtos/config.dto";
 import { Config, ConfigDocument } from "@/schemas/config.schema";
 
@@ -10,7 +10,7 @@ import { Config, ConfigDocument } from "@/schemas/config.schema";
  * 설정 Provider 구현
  */
 @Injectable()
-export class ConfigProviderImpl extends AbstractCommonProvider implements ConfigProvider {
+export class ConfigServiceImpl extends AbstractCommonService implements ConfigService {
   constructor(@InjectModel(Config.name) private readonly configModel: Model<ConfigDocument>) {
     super();
     this.logger.debug("ConfigProvider created");

@@ -1,14 +1,14 @@
 import { Body, Controller, Get, Inject, Post } from "@nestjs/common";
 import { AbstractCommonController } from "@/controllers/abstract-common-controller";
-import { ConfigProvider } from "@/providers/config.provider";
-import { ConfigProviderImpl } from "@/providers/impl/config.provider.impl";
+import { ConfigService } from "@/services/config.service";
+import { ConfigServiceImpl } from "@/services/impl/config.service.impl";
 import { ResultDto } from "@/dtos/result.dto";
 import { ConfigDto } from "@/dtos/config.dto";
 import { ResultTypes } from "@/errors/result-types";
 
 @Controller()
 export class ConfigController extends AbstractCommonController {
-  constructor(@Inject(ConfigProviderImpl) private readonly configProvider: ConfigProvider) {
+  constructor(@Inject(ConfigServiceImpl) private readonly configProvider: ConfigService) {
     super();
     this.logger.debug("ConfigController created");
   }

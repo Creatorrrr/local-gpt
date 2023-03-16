@@ -3,7 +3,7 @@ import { ConfigDto } from "@/dtos/config.dto";
 /**
  * 설정 Provider
  */
-export interface ConfigProvider {
+export interface ConfigService {
   /**
    * 설정 조회
    */
@@ -12,7 +12,7 @@ export interface ConfigProvider {
   /**
    * 설정 등록
    *
-   * @param chat 등록할 설정 데이터
+   * @param config 등록할 설정 데이터
    */
   postConfig(config: ConfigDto): Promise<ConfigDto>;
 }

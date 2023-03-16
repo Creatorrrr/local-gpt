@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Inject, Post } from "@nestjs/common";
 import { AbstractCommonController } from "@/controllers/abstract-common-controller";
-import { ChatProvider } from "@/providers/chat.provider";
-import { ChatProviderImpl } from "@/providers/impl/chat.provider.impl";
+import { ChatService } from "@/services/chat.service";
+import { ChatServiceImpl } from "@/services/impl/chat.service.impl";
 import { ResultDto } from "@/dtos/result.dto";
 import { ChatDto } from "@/dtos/chat.dto";
 import { ChatLogDto } from "@/dtos/chat-log.dto";
@@ -9,7 +9,7 @@ import { ResultTypes } from "@/errors/result-types";
 
 @Controller()
 export class ChatController extends AbstractCommonController {
-  constructor(@Inject(ChatProviderImpl) private readonly chatProvider: ChatProvider) {
+  constructor(@Inject(ChatServiceImpl) private readonly chatProvider: ChatService) {
     super();
     this.logger.debug("ChatController created");
   }

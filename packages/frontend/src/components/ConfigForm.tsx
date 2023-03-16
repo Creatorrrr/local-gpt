@@ -1,6 +1,8 @@
 import { getConfig, postConfig } from "@/apis/config.api";
 import React, { useState, useEffect } from "react";
 
+console.debug("ConfigForm.tsx");
+
 type ConfigData = {
   modelEngine: string;
   apiKey: string;

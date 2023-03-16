@@ -1,10 +1,9 @@
 export class ResultType {
+  private readonly status: number;
+  private readonly message: string;
+  private readonly error: new () => Error;
 
-  private status: number;
-  private message: string;
-  private error: new() => Error;
-
-  constructor(_status: number, _message: string, _error?: new() => Error) {
+  constructor(_status: number, _message: string, _error?: new () => Error) {
     this.status = _status;
     this.message = _message;
     this.error = _error;
@@ -18,8 +17,7 @@ export class ResultType {
     return this.message;
   }
 
-  public get $error(): new() => Error {
+  public get $error(): new () => Error {
     return this.error;
   }
-
 }

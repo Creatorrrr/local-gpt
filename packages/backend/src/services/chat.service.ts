@@ -4,7 +4,7 @@ import { ChatDto } from "@/dtos/chat.dto";
 /**
  * 대화 Provider
  */
-export interface ChatProvider {
+export interface ChatService {
   /**
    * 모든 대화 조회
    */

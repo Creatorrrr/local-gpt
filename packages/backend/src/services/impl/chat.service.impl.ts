@@ -2,8 +2,8 @@ import { OpenAIApi, Configuration, ChatCompletionRequestMessage } from "openai";
 import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { AbstractCommonProvider } from "@/providers/impl/abstract-common.provider";
-import { ChatProvider } from "@/providers/chat.provider";
+import { AbstractCommonService } from "@/services/impl/abstract-common.service";
+import { ChatService } from "@/services/chat.service";
 import { ChatDto } from "@/dtos/chat.dto";
 import { ChatLogDto } from "@/dtos/chat-log.dto";
 import { Config, ConfigDocument } from "@/schemas/config.schema";
@@ -15,7 +15,7 @@ import { MODEL_ENGINE, TEMPERATURE } from "@/constants/openai.constant";
  * 대화 Provider 구현
  */
 @Injectable()
-export class ChatProviderImpl extends AbstractCommonProvider implements ChatProvider {
+export class ChatServiceImpl extends AbstractCommonService implements ChatService {
   constructor(
     @InjectModel(Config.name) private readonly configModel: Model<ConfigDocument>,
     @InjectModel(Chat.name) private readonly chatModel: Model<ChatDocument>,
@@ -59,8 +59,6 @@ export class ChatProviderImpl extends AbstractCommonProvider implements ChatProv
 
   async getChatLogs(): Promise<ChatLogDto[]> {
     const chatLogList = await this.chatLogModel.find().exec();
-    const ChatLogDtoList = chatLogList.map((item) => new ChatLogDto(item.toObject()));
-
-    return ChatLogDtoList;
+    return chatLogList.map((item) => new ChatLogDto(item.toObject()));
   }
 }
