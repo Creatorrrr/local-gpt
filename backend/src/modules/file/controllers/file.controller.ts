@@ -1,5 +1,5 @@
 import { Controller, Inject, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { AbstractCommonController } from "@/abstracts/abstract-common-controller";
 import { ResultDto } from "@/dtos/result.dto";
@@ -19,9 +19,21 @@ export class FileController extends AbstractCommonController {
   @Post("/files")
   @UseInterceptors(FileInterceptor("file"))
   @ApiOperation({ summary: "파일 업로드" })
+  @ApiConsumes("multipart/form-data")
+  @ApiBody({
+    schema: {
+      type: "object",
+      properties: {
+        file: {
+          type: "string",
+          format: "binary",
+        },
+      },
+    },
+  })
   async postFile(@UploadedFile() file: Express.Multer.File): Promise<ResultDto<{ description: string }>> {
     const fileDto = new FileDto(file);
     const result = await this.fileService.uploadFile(fileDto);
-    return this.makeResult(ResultTypes.SUCCESS_REGISTER, result);
+    return this.makeResult(ResultTypes.SUCCESS_UPLOAD, result);
   }
 }
