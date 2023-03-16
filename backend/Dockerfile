@@ -1,6 +1,6 @@
 FROM node:18-alpine
 WORKDIR /app/server
-COPY ./backend .
+COPY . .
 RUN yarn install --immutable --immutable-cache --check-cache
 RUN yarn build
 CMD ["yarn", "start:prod"]
