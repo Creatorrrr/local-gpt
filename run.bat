@@ -5,37 +5,37 @@ goto :run
 
 :build
 cd ./frontend
-yarn install --immutable --immutable-cache --check-cache
-yarn build
+call yarn install --immutable --immutable-cache --check-cache
+call yarn build
 cd ..
 exit /b 0
 
 :start
-docker-compose -f %DOCKER_COMPOSE_PATH% up -d --build
+call docker-compose -f %DOCKER_COMPOSE_PATH% up -d --build
 exit /b 0
 
 :start_web
-docker-compose -f %DOCKER_COMPOSE_PATH% up -d --build web
+call docker-compose -f %DOCKER_COMPOSE_PATH% up -d --build web
 exit /b 0
 
 :start_db
-docker-compose -f %DOCKER_COMPOSE_PATH% up -d --build db
+call docker-compose -f %DOCKER_COMPOSE_PATH% up -d --build db
 exit /b 0
 
 :restart_web
-docker-compose -f %DOCKER_COMPOSE_PATH% restart web
+call docker-compose -f %DOCKER_COMPOSE_PATH% restart web
 exit /b 0
 
 :restart_db
-docker-compose -f %DOCKER_COMPOSE_PATH% restart web
+call docker-compose -f %DOCKER_COMPOSE_PATH% restart web
 exit /b 0
 
 :down
-docker-compose -f %DOCKER_COMPOSE_PATH% down
+call docker-compose -f %DOCKER_COMPOSE_PATH% down
 exit /b 0
 
 :log
-docker-compose -f %DOCKER_COMPOSE_PATH% logs -f
+call docker-compose -f %DOCKER_COMPOSE_PATH% logs -f
 exit /b 0
 
 :run
