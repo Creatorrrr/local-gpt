@@ -20,7 +20,10 @@ const ConfigForm = () => {
     (async () => {
       const response = await getConfig();
       const config = response.data?.result;
-      if (config) setConfigData(config);
+      if (config) setConfigData({
+        ...configData,
+        ...config
+      });
     })();
   }, []);
 

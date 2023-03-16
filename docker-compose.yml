@@ -6,26 +6,25 @@ services:
       context: .
       dockerfile: ./Dockerfile
     ports:
-      - "80:3000"
-      - "443:3000"
+      - "8099:3000"
     volumes:
-      - ~/openai-chatgpt/files:/app/files
+      - ~/local-gpt/files:/app/files
     environment:
-      - DB_DATABASE=mongodb://mongo-admin:P%40ssW0rd@db:27017/openai-chatgpt?authSource=admin
+      - DB_DATABASE=mongodb://mongo-admin:P%40ssW0rd@db:27017/local-gpt?authSource=admin
     networks:
-      - openai-chatgpt
+      - local-gpt
   db:
     build: ./mongodb
     ports:
       - "27890:27017"
     volumes:
-      - ~/openai-chatgpt/db:/data/db
+      - ~/local-gpt/db:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=mongo-admin
       - MONGO_INITDB_ROOT_PASSWORD=P@ssW0rd
     restart: always
     networks:
-      - openai-chatgpt
+      - local-gpt
 
 networks:
-  openai-chatgpt:
+  local-gpt:
