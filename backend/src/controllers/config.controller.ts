@@ -10,7 +10,7 @@ import { ResultTypes } from "@/errors/result-types";
 @Controller()
 @ApiTags("설정 API")
 export class ConfigController extends AbstractCommonController {
-  constructor(@Inject(ConfigServiceImpl) private readonly configProvider: ConfigService) {
+  constructor(@Inject(ConfigServiceImpl) private readonly configService: ConfigService) {
     super();
     this.logger.debug("ConfigController created");
   }
@@ -18,14 +18,14 @@ export class ConfigController extends AbstractCommonController {
   @Get("/configs")
   @ApiOperation({ summary: "설정 조회" })
   async getConfig(): Promise<ResultDto<ConfigDto>> {
-    const result = await this.configProvider.getConfig();
+    const result = await this.configService.getConfig();
     return this.makeResult(ResultTypes.SUCCESS_GET, result);
   }
 
   @Post("/configs")
   @ApiOperation({ summary: "설정 등록" })
   async postConfig(@Body() config: ConfigDto): Promise<ResultDto<ConfigDto>> {
-    const result = await this.configProvider.postConfig(config);
+    const result = await this.configService.postConfig(config);
     return this.makeResult(ResultTypes.SUCCESS_REGISTER, result);
   }
 }

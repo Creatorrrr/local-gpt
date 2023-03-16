@@ -4,10 +4,10 @@ set DOCKER_COMPOSE_PATH="%CD%/docker-compose.yml"
 goto :run
 
 :build
-cd ./packages/frontend
+cd ./frontend
 yarn install --immutable --immutable-cache --check-cache
 yarn build
-cd ../..
+cd ..
 exit /b 0
 
 :start

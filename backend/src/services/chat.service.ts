@@ -2,7 +2,7 @@ import { ChatLogDto } from "@/dtos/chat-log.dto";
 import { ChatDto } from "@/dtos/chat.dto";
 
 /**
- * 대화 Provider
+ * 대화 Service
  */
 export interface ChatService {
   /**

@@ -12,7 +12,7 @@ import { ChatLog, ChatLogDocument } from "@/schemas/chat-log.schema";
 import { MODEL_ENGINE, TEMPERATURE } from "@/constants/openai.constant";
 
 /**
- * 대화 Provider 구현
+ * 대화 Service 구현
  */
 @Injectable()
 export class ChatServiceImpl extends AbstractCommonService implements ChatService {
@@ -22,7 +22,7 @@ export class ChatServiceImpl extends AbstractCommonService implements ChatServic
     @InjectModel(ChatLog.name) private readonly chatLogModel: Model<ChatLogDocument>
   ) {
     super();
-    this.logger.debug("ChatProvider created");
+    this.logger.debug("ChatServiceImpl created");
   }
 
   async getChats(): Promise<ChatDto[]> {

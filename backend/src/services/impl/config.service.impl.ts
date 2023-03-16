@@ -7,13 +7,13 @@ import { ConfigDto } from "@/dtos/config.dto";
 import { Config, ConfigDocument } from "@/schemas/config.schema";
 
 /**
- * 설정 Provider 구현
+ * 설정 Service 구현
  */
 @Injectable()
 export class ConfigServiceImpl extends AbstractCommonService implements ConfigService {
   constructor(@InjectModel(Config.name) private readonly configModel: Model<ConfigDocument>) {
     super();
-    this.logger.debug("ConfigProvider created");
+    this.logger.debug("ConfigServiceImpl created");
   }
 
   async getConfig(): Promise<ConfigDto> {

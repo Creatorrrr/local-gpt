@@ -3,10 +3,10 @@
 export DOCKER_COMPOSE_PATH="${PWD}/docker-compose.yml"
 
 build() {
-  cd ./packages/frontend || return
+  cd ./frontend || return
   yarn install --immutable --immutable-cache --check-cache
   yarn build
-  cd ../..
+  cd ..
 }
 
 start() {

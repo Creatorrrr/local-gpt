@@ -1,7 +1,7 @@
 import { ConfigDto } from "@/dtos/config.dto";
 
 /**
- * 설정 Provider
+ * 설정 Service
  */
 export interface ConfigService {
   /**
