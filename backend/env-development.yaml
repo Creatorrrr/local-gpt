@@ -1,0 +1,9 @@
+server:
+  port: 3000
+app:
+  name: "local-gpt"
+log:
+  path: "../logs"
+  level: "debug"
+file:
+  path: "../files"
