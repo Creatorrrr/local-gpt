@@ -1,14 +1,18 @@
+import { AbstractCommonDto } from "@/abstracts/abstract-common.dto";
+import { CommonUtil } from "@/utils/common.util";
+
 /**
  * 결과값 DTO
  */
-export class ResultDto<T> {
-  readonly statusCode: number;
-  readonly message: string;
-  readonly result: any;
+export class ResultDto<T> extends AbstractCommonDto {
+  readonly _statusCode: number;
+  readonly _message: string;
+  readonly _result: T;
 
-  constructor(_statusCode: number, _message: string, _result?: T) {
-    this.statusCode = _statusCode;
-    this.message = _message;
-    this.result = _result;
+  constructor(statusCode: number, message: string, result?: T) {
+    super();
+    this._statusCode = statusCode;
+    this._message = message;
+    this._result = result;
   }
 }

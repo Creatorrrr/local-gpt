@@ -13,7 +13,7 @@ export abstract class AbstractCommonController {
    * 에러 체크에 사용할 에러 목록
    */
   private static readonly errorTypes = Object.values(ResultTypes).filter(
-    (resultType) => resultType.$error
+    (resultType) => resultType.error
   ) as ResultType[];
 
   /**
@@ -25,9 +25,9 @@ export abstract class AbstractCommonController {
    */
   protected makeResult(resultType: ResultType, resultData?: any) {
     if (resultData) {
-      return new ResultDto(resultType.$status, resultType.$message, resultData);
+      return new ResultDto(resultType.status, resultType.message, resultData);
     } else {
-      return new ResultDto(resultType.$status, resultType.$message);
+      return new ResultDto(resultType.status, resultType.message);
     }
   }
 
@@ -39,7 +39,7 @@ export abstract class AbstractCommonController {
    */
   protected checkError(error: Error) {
     for (const resultType of AbstractCommonController.errorTypes) {
-      if (resultType.$error === error.constructor) {
+      if (resultType.error === error.constructor) {
         return resultType;
       }
     }

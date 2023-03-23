@@ -1,4 +1,3 @@
-import { Readable } from "stream";
 import { IsNumber, IsString } from "class-validator";
 import { AbstractCommonDto } from "@/abstracts/abstract-common.dto";
 
@@ -12,40 +11,34 @@ export class FileDto extends AbstractCommonDto {
     encoding,
     mimetype,
     size,
-    stream,
     destination,
     filename,
     path,
-    buffer,
   }: {
     fieldname?: string;
     originalname?: string;
     encoding?: string;
     mimetype?: string;
     size?: number;
-    stream?: Readable;
     destination?: string;
     filename?: string;
     path?: string;
-    buffer?: Buffer;
   } = {}) {
     super();
     this.fieldname = fieldname;
-    this.originalname = originalname;
+    this._originalname = originalname;
     this.encoding = encoding;
     this.mimetype = mimetype;
     this.size = size;
-    this.stream = stream;
     this.destination = destination;
     this.filename = filename;
     this.path = path;
-    this.buffer = buffer;
   }
   @IsString()
   fieldname: string;
 
   @IsString()
-  originalname: string;
+  private _originalname: string;
 
   @IsString()
   encoding: string;
@@ -56,8 +49,6 @@ export class FileDto extends AbstractCommonDto {
   @IsNumber()
   size: number;
 
-  stream: Readable;
-
   @IsString()
   destination: string;
 
@@ -67,5 +58,14 @@ export class FileDto extends AbstractCommonDto {
   @IsString()
   path: string;
 
-  buffer: Buffer;
+  get originalname() {
+    return this._originalname;
+  }
+
+  set originalname(originalname) {
+    const encodedOriginalName =
+      typeof originalname === "string" ? Buffer.from(originalname, "latin1").toString("utf-8") : "empty";
+
+    this._originalname = encodedOriginalName;
+  }
 }

@@ -1,5 +1,7 @@
 import { diskStorage } from "multer";
+import * as path from "path";
 import * as fs from "fs-extra";
+import { randomUUID } from "crypto";
 import { Response } from "express";
 import {
   Controller,
@@ -35,6 +37,15 @@ export class FileController extends AbstractCommonController {
     FileInterceptor("file", {
       storage: diskStorage({
         destination: FILE_PATH,
+        filename: (_, file, callback) => {
+          const originalName = path.parse(file.originalname);
+          const extension = originalName.ext;
+          const newFilename = randomUUID() + extension;
+
+          const encodedFilename = Buffer.from(newFilename, "latin1").toString("utf-8");
+
+          callback(null, encodedFilename);
+        },
       }),
     })
   )
@@ -54,16 +65,20 @@ export class FileController extends AbstractCommonController {
   async postFile(@UploadedFile() file: Express.Multer.File): Promise<ResultDto<any>> {
     const fileDto = new FileDto(file);
     const result = await this.fileService.uploadFile(fileDto);
+
     return this.makeResult(ResultTypes.SUCCESS_UPLOAD, result);
   }
 
   @Get("/files/:fileId")
   @ApiOperation({ summary: "파일 다운로드" })
-  async downloadFile(@Param("fileId") fileId: string): Promise<StreamableFile> {
+  async downloadFile(@Param("fileId") fileId: string, @Res() res: Response): Promise<void> {
     const file = await this.fileService.getFile(fileId);
 
-    const result = fs.createReadStream(file.path);
+    const fileStream = fs.createReadStream(file.path);
 
-    return new StreamableFile(result);
+    const encodedFileName = encodeURIComponent(file.originalname);
+    res.setHeader("Content-Disposition", `attachment; filename*=UTF-8''${encodedFileName}`);
+
+    fileStream.pipe(res);
   }
 }

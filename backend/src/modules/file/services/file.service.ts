@@ -7,9 +7,9 @@ export interface FileService {
   /**
    * 파일 업로드
    *
-   * @param config 등록할 설정 데이터
+   * @param file 업로드된 파일 데이터
    */
-  uploadFile(config: FileDto): Promise<any>;
+  uploadFile(file: FileDto): Promise<any>;
 
   getFile(fileId: string): Promise<FileDto>;
 }

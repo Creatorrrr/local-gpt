@@ -1,10 +1,11 @@
 import { IsObject, IsString } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
+import { AbstractCommonDto } from "@/abstracts/abstract-common.dto";
 
 /**
  * 대화 DTO
  */
-export class ChatLogDto {
+export class ChatLogDto extends AbstractCommonDto {
   constructor({
     id,
     object,
@@ -20,6 +21,7 @@ export class ChatLogDto {
     usage: { promptTokens: number; completionTokens: number; totalTokens: number };
     choices: { message: { role: string; content: string }; finishReason: string; index: number }[];
   }) {
+    super();
     this.id = id;
     this.object = object;
     this.created = created;

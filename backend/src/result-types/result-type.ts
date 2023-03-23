@@ -1,23 +1,23 @@
 export class ResultType {
-  private readonly status: number;
-  private readonly message: string;
-  private readonly error: new () => Error;
+  private readonly _status: number;
+  private readonly _message: string;
+  private readonly _error: new () => Error;
 
-  constructor(_status: number, _message: string, _error?: new () => Error) {
-    this.status = _status;
-    this.message = _message;
-    this.error = _error;
+  constructor(status: number, message: string, error?: new () => Error) {
+    this._status = status;
+    this._message = message;
+    this._error = error;
   }
 
-  public get $status(): number {
-    return this.status;
+  public get status(): number {
+    return this._status;
   }
 
-  public get $message(): string {
-    return this.message;
+  public get message(): string {
+    return this._message;
   }
 
-  public get $error(): new () => Error {
-    return this.error;
+  public get error(): new () => Error {
+    return this._error;
   }
 }

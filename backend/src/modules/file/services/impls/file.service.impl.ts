@@ -16,8 +16,8 @@ export class FileServiceImpl extends AbstractCommonService implements FileServic
     this.logger.debug("FileServiceImpl created");
   }
 
-  async uploadFile(config: FileDto): Promise<any> {
-    const createdFile = await this.fileModel.create(config);
+  async uploadFile(file: FileDto): Promise<any> {
+    const createdFile = await this.fileModel.create(file.toJSON());
 
     return createdFile;
   }

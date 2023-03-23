@@ -2,8 +2,14 @@
  * 공통 유틸
  */
 export class CommonUtil {
-  public static toObject(original: any) {
-    return JSON.parse(JSON.stringify(original));
+  public static toJSON(original: object) {
+    const entries = Object.entries(original);
+    const json = entries.reduce((prev, [key, value]) => {
+      const newKey = key.startsWith("_") ? key.substring(1) : key;
+      return { ...prev, [newKey]: value };
+    }, {});
+
+    return json;
   }
 
   /**
