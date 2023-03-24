@@ -1,19 +1,10 @@
 import { diskStorage } from "multer";
 import * as path from "path";
 import * as fs from "fs-extra";
+import * as mime from "mime-types";
 import { randomUUID } from "crypto";
 import { Response } from "express";
-import {
-  Controller,
-  Get,
-  Inject,
-  Param,
-  Post,
-  Res,
-  StreamableFile,
-  UploadedFile,
-  UseInterceptors,
-} from "@nestjs/common";
+import { Controller, Get, Inject, Param, Post, Res, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { AbstractCommonController } from "@/abstracts/abstract-common-controller";
@@ -76,8 +67,10 @@ export class FileController extends AbstractCommonController {
 
     const fileStream = fs.createReadStream(file.path);
 
-    const encodedFileName = encodeURIComponent(file.originalname);
+    const utf8FileName = Buffer.from(file.originalname, "latin1").toString("utf-8");
+    const encodedFileName = encodeURIComponent(utf8FileName);
     res.setHeader("Content-Disposition", `attachment; filename*=UTF-8''${encodedFileName}`);
+    res.setHeader("Content-Type", `${mime.contentType(encodedFileName)}`);
 
     fileStream.pipe(res);
   }
