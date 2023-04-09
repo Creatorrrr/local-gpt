@@ -50,21 +50,54 @@ const ConfigForm = () => {
   };
 
   return (
-    <form onSubmit={onSubmitConfig}>
-      <label>
-        Model Engine:
-        <input type="text" name="modelEngine" value={configData.modelEngine} onChange={onChangeInputText} />
-      </label>
-      <label>
-        API Key:
-        <input type="text" name="apiKey" value={configData.apiKey} onChange={onChangeInputText} />
-      </label>
-      <label>
-        Temperature:
-        <input type="number" name="temperature" value={configData.temperature} onChange={onChangeInputText} />
-      </label>
-      <button type="submit">Save</button>
+    <form onSubmit={onSubmitConfig} className="space-y-4">
+      <div className="flex flex-col">
+        <label htmlFor="modelEngine" className="text-gray-700 font-semibold">
+          Model Engine:
+        </label>
+        <input
+          type="text"
+          name="modelEngine"
+          id="modelEngine"
+          value={configData.modelEngine}
+          onChange={onChangeInputText}
+          className="border-2 border-gray-300 p-2 rounded-lg focus:border-green-500 focus:outline-none"
+        />
+      </div>
+      <div className="flex flex-col">
+        <label htmlFor="apiKey" className="text-gray-700 font-semibold">
+          API Key:
+        </label>
+        <input
+          type="text"
+          name="apiKey"
+          id="apiKey"
+          value={configData.apiKey}
+          onChange={onChangeInputText}
+          className="border-2 border-gray-300 p-2 rounded-lg focus:border-green-500 focus:outline-none"
+        />
+      </div>
+      <div className="flex flex-col">
+        <label htmlFor="temperature" className="text-gray-700 font-semibold">
+          Temperature:
+        </label>
+        <input
+          type="number"
+          name="temperature"
+          id="temperature"
+          value={configData.temperature}
+          onChange={onChangeInputText}
+          className="border-2 border-gray-300 p-2 rounded-lg focus:border-green-500 focus:outline-none"
+        />
+      </div>
+      <button
+        type="submit"
+        className="bg-green-500 text-white font-semibold p-2 rounded-lg hover:bg-green-600 focus:outline-none"
+      >
+        Save
+      </button>
     </form>
+
   );
 };
 
