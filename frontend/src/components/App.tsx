@@ -1,12 +1,17 @@
+import { QueryClientProvider, QueryClient } from "react-query";
 import ChatPage from "./ChatPage";
 import ConfigForm from "./ConfigForm";
 
 const App = () => {
+  const queryClient = new QueryClient();
+
   return (
-    <div>
-      <ConfigForm />
-      <ChatPage />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div>
+        <ConfigForm />
+        <ChatPage />
+      </div>
+    </QueryClientProvider>
   );
 };
 

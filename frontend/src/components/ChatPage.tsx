@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useQuery, useMutation } from "react-query";
 import { ChatReq, deleteChatAll, getChat, postChat } from "@/apis/chat.api";
 
 console.debug("ChatPage.tsx");
@@ -13,59 +14,49 @@ const ChatPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [chatList, setChatList] = useState([] as Chat[]);
 
+  const queries = {
+    chatList: useQuery("chatList", getChat, {
+      onSuccess(response) {
+        setChatList(response.data?.result);
+      },
+    }),
+  }
+
+  const mutations = {
+    postChat: useMutation(postChat, {
+      onSuccess: (response) => {
+        const chatResult = { role: "assistant", content: response.data.result } as Chat;
+        setChatList([...chatList, chatResult]);
+      },
+      onSettled: () => {
+        setInputText("");
+      }
+    }),
+    deleteChatAll: useMutation(deleteChatAll, {
+      onSuccess: () => {
+        setChatList([]);
+      },
+    }),
+  }
+
   useEffect(() => {
-    (async () => {
-      const response = await getChat();
-      const chatHistory = response.data?.result;
-      if (chatHistory) setChatList(chatHistory);
-    })();
-  }, []);
+    setIsLoading(queries.chatList.isLoading || mutations.postChat.isLoading || mutations.deleteChatAll.isLoading);
+  }, [queries.chatList.isLoading, mutations.postChat.isLoading, mutations.deleteChatAll.isLoading]);
 
   const onChangeInputText = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputText(event.target.value);
   };
 
-  const onSubmitChat = async (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitChat = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setIsLoading(true);
-
-    try {
-      const chatInput: Chat = {
-        role: "user",
-        content: inputText,
-      };
-
-      const newChatList = [...chatList, chatInput];
-      setChatList(newChatList);
-
-      const response = await postChat({ role: chatInput.role, content: chatInput.content } as ChatReq);
-      const chatResult = { role: "assistant", content: response.data.result } as Chat;
-
-      setChatList([...newChatList, chatResult]);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-
-    setInputText("");
+    mutations.postChat.mutate({ role: "user", content: inputText } as ChatReq);
   };
 
-  const onClickDeleteAll = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onClickDeleteAll = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    setIsLoading(true);
-
-    try {
-      await deleteChatAll();
-
-      setChatList([]);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
+    mutations.deleteChatAll.mutate({});
   }
 
   return (
